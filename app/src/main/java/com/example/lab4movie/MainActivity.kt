@@ -1,5 +1,6 @@
 package com.example.lab4movie
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -30,8 +31,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupRecyclerView() {
         movieAdapter = MovieAdapter { movie ->
-            // Handle movie click
-            Toast.makeText(this, "Selected: ${movie.title}", Toast.LENGTH_SHORT).show()
+            try {
+                val intent = Intent(this, MovieDetailActivity::class.java).apply {
+                    putExtra("movie_id", movie.id)
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                }
+                startActivity(intent)
+            } catch (e: Exception) {
+                Toast.makeText(this, "Error opening movie details", Toast.LENGTH_SHORT).show()
+            }
         }
 
         binding.moviesRecyclerView.apply {

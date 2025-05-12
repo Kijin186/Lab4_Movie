@@ -1,5 +1,6 @@
 package com.example.lab4movie.api
 
+import retrofit2.http.Path
 import com.example.lab4movie.data.Movie
 import com.example.lab4movie.data.MovieResponse
 import retrofit2.http.GET
@@ -14,8 +15,8 @@ interface MovieApiService {
 
     @GET("movie/{movie_id}")
     suspend fun getMovieDetails(
-        @Query("api_key") apiKey: String,
-        @Query("movie_id") movieId: Int
+        @Path("movie_id") movieId: Int,
+        @Query("api_key") apiKey: String
     ): Movie
 }
 
